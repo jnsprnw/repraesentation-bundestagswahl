@@ -41,7 +41,7 @@
     {@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}
     {@const colWidth = $xScale.bandwidth ? $xScale.bandwidth() : columnWidth(d)}
     {@const yValue = $y(d)}
-    {#if state.step >= 2}
+    {#if state.step >= 2 && d.is_party}
       <rect
         class="group-rect"
         x={xPos + 0.5}
@@ -51,7 +51,6 @@
         stroke={$z(d)}
         fill="rgba(255, 255, 255, 0.8)"
         stroke-dasharray="4 3"
-        style="stroke-location: inside;"
       />
     {/if}
     <rect

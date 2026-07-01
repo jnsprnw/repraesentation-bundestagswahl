@@ -34,6 +34,7 @@ type Party = {
   absolute: number;
   color: string;
   is_display?: boolean;
+  is_party?: boolean;
   is_include: boolean;
 };
 
@@ -52,35 +53,40 @@ export class BundestagswahlState {
       relative: CDU_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * CDU_RELATIVE,
       color: COLOR_CDU,
-      is_include: true
+      is_include: true,
+      is_party: true
     },
     {
       party: 'SPD',
       relative: SPD_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * SPD_RELATIVE,
       color: COLOR_SPD,
-      is_include: true
+      is_include: true,
+      is_party: true
     },
     {
       party: 'Grüne',
       relative: GRUNE_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * GRUNE_RELATIVE,
       color: COLOR_GRUNE,
-      is_include: true
+      is_include: true,
+      is_party: true
     },
     {
       party: 'Linke',
       relative: LINKE_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * LINKE_RELATIVE,
       color: COLOR_LINKE,
-      is_include: true
+      is_include: true,
+      is_party: true
     },
     {
       party: 'AfD',
       relative: AFD_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * AFD_RELATIVE,
       color: COLOR_AFD,
-      is_include: true
+      is_include: true,
+      is_party: true
     },
     {
       party: 'Sonstige',
@@ -88,6 +94,7 @@ export class BundestagswahlState {
       absolute: WAEHLERINNEN_ABSOLUTE * SONSTIGE_RELATIVE,
       color: COLOR_SONSTIGE,
       is_include: true,
+      is_party: true,
       is_display: this.include_others
     },
     {
@@ -96,7 +103,6 @@ export class BundestagswahlState {
       absolute: WAHLBERECHTIGTE_ABSOLUTE * (1 - WAEHLERINNEN_RELATIVE),
       color: COLOR_NON_VOTERS,
       is_include: this.include_non_voters
-      // in_sum: false
     }
   ]);
 
