@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+@theme {
+  --text-tick: 10px;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Geist-Regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/Geist-SemiBold.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/Geist-Black.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+html {
+  font-family: 'Geist', sans-serif;
+}
+
+thead th,
+tbody td:first-child :not(.non-party) {
+  font-weight: 600;
+}
+
+.hide {
+  @apply text-white select-none;
+}
+
+a {
+  @apply underline decoration-blue-500 decoration-[1.5px] hover:text-blue-500 focus:text-blue-500;
+}
