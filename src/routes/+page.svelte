@@ -38,8 +38,14 @@
         Inspiration und Daten von <a href="https://www.instagram.com/arne.semsrott/"
           >Arne Semsrotts</a
         >
-        <a href="https://www.youtube.com/watch?v=7waHkzEHcuw">Vortrag</a> bei der re:publica 26. Basierend
-        auf Ergebnissen der ersten Hochrechnung.
+        <a href="https://www.youtube.com/watch?v=7waHkzEHcuw">Vortrag</a> bei der re:publica 26.
+        Basierend auf dem
+        <a href="https://www.bundeswahlleiterin.de/service/glossar/w/wahlbeteiligung.html"
+          >entgültigen</a
+        >
+        <a href="https://www.bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/bund-99.html"
+          >Ergebnis</a
+        >.
       </p>
     </header>
     <main class="flex flex-col gap-y-6">

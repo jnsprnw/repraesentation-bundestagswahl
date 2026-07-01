@@ -1,13 +1,16 @@
-export const WAHLBERECHTIGTE_ABSOLUTE = 59200000;
-export const WAEHLERINNEN_RELATIVE = 0.84;
+export const WAHLBERECHTIGTE_ABSOLUTE = 60510631;
+export const WAEHLERINNEN_RELATIVE = 0.825;
 export const WAEHLERINNEN_ABSOLUTE = WAHLBERECHTIGTE_ABSOLUTE * WAEHLERINNEN_RELATIVE;
 
-export const CDU_RELATIVE = 0.286;
-export const SPD_RELATIVE = 0.163;
-export const GRUNE_RELATIVE = 0.123;
-export const LINKE_RELATIVE = 0.085;
-export const AFD_RELATIVE = 0.204;
-export const SONSTIGE_RELATIVE = 0.139;
+// https://www.bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/bund-99.html
+// CDU + CSU
+export const CDU_RELATIVE = 0.226 + 0.06;
+export const SPD_RELATIVE = 0.164;
+export const GRUNE_RELATIVE = 0.116;
+export const LINKE_RELATIVE = 0.088;
+export const AFD_RELATIVE = 0.208;
+// FDP + SSW + Sonstige
+export const SONSTIGE_RELATIVE = 0.043 + 0.02 + 0.094;
 
 export const COLOR_CDU = 'rgb(51, 51, 51)';
 export const COLOR_SPD = 'rgb(227, 29, 52)';
