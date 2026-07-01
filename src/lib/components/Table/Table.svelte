@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { parties, current_absolute } from '$lib/data';
   import { formatPercent, formatNumber } from '$lib/format';
   import { sumArray } from '$lib/math';
   import { getBundestagswahlState } from '$lib/state.svelte';
@@ -50,10 +49,13 @@
     >
       <td class="non-party pt-2 text-left">Wahlberechtigte</td>
       <td>
-        {formatPercent((1 / current_absolute) * sumArray(parties.map((party) => party.absolute)))}
+        {formatPercent(
+          (1 / state.current_absolute) *
+            sumArray(state.parties_with_actual.map((party) => party.absolute))
+        )}
       </td>
       <td></td>
-      <td>{formatNumber(sumArray(parties.map((party) => party.absolute)))}</td>
+      <td>{formatNumber(sumArray(state.parties_with_actual.map((party) => party.absolute)))}</td>
     </tr>
     {#each state.non_parties_with_actual as party, index (party.party)}
       <Row is_active={party.is_include}>
@@ -78,7 +80,7 @@
       <td class="pt-2 text-left">Gesamtbevölkerung</td>
       <td></td>
       <td></td>
-      <td>{formatNumber(current_absolute)}</td>
+      <td>{formatNumber(state.current_absolute)}</td>
     </tr>
   </tbody>
 </table>
