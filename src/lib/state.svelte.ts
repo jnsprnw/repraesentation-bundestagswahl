@@ -5,10 +5,10 @@ import { SvelteMap } from 'svelte/reactivity';
 import {
   NON_CITIZEN_ABSOLUTE,
   MINOR_ABSOLUTE,
-  GRUNE_COLOR,
-  LINKE_COLOR,
-  SONSTIGE_COLOR,
-  AFD_COLOR,
+  COLOR_GRUNE,
+  COLOR_LINKE,
+  COLOR_SONSTIGE,
+  COLOR_AFD,
   WAHLBERECHTIGTE_ABSOLUTE,
   WAEHLERINNEN_RELATIVE,
   SONSTIGE_RELATIVE,
@@ -16,13 +16,13 @@ import {
   LINKE_RELATIVE,
   GRUNE_RELATIVE,
   CDU_RELATIVE,
-  CDU_COLOR,
+  COLOR_CDU,
   SPD_RELATIVE,
-  SPD_COLOR,
+  COLOR_SPD,
   WAEHLERINNEN_ABSOLUTE,
-  NON_VOTERS_COLOR,
-  NON_CITIZEN_COLOR,
-  MINOR_COLOR
+  COLOR_NON_VOTERS,
+  COLOR_NON_CITIZEN,
+  COLOR_MINOR
 } from '$lib/data';
 import { sumArray } from '$lib/math';
 
@@ -51,42 +51,42 @@ export class BundestagswahlState {
       party: 'Union',
       relative: CDU_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * CDU_RELATIVE,
-      color: CDU_COLOR,
+      color: COLOR_CDU,
       is_include: true
     },
     {
       party: 'SPD',
       relative: SPD_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * SPD_RELATIVE,
-      color: SPD_COLOR,
+      color: COLOR_SPD,
       is_include: true
     },
     {
       party: 'Grüne',
       relative: GRUNE_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * GRUNE_RELATIVE,
-      color: GRUNE_COLOR,
+      color: COLOR_GRUNE,
       is_include: true
     },
     {
       party: 'Linke',
       relative: LINKE_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * LINKE_RELATIVE,
-      color: LINKE_COLOR,
+      color: COLOR_LINKE,
       is_include: true
     },
     {
       party: 'AfD',
       relative: AFD_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * AFD_RELATIVE,
-      color: AFD_COLOR,
+      color: COLOR_AFD,
       is_include: true
     },
     {
       party: 'Sonstige',
       relative: SONSTIGE_RELATIVE,
       absolute: WAEHLERINNEN_ABSOLUTE * SONSTIGE_RELATIVE,
-      color: SONSTIGE_COLOR,
+      color: COLOR_SONSTIGE,
       is_include: true,
       is_display: this.include_others
     },
@@ -94,7 +94,7 @@ export class BundestagswahlState {
       party: 'Nichtwähler:innen',
       relative: 1 - WAEHLERINNEN_RELATIVE,
       absolute: WAHLBERECHTIGTE_ABSOLUTE * (1 - WAEHLERINNEN_RELATIVE),
-      color: NON_VOTERS_COLOR,
+      color: COLOR_NON_VOTERS,
       is_include: this.include_non_voters
       // in_sum: false
     }
@@ -104,13 +104,13 @@ export class BundestagswahlState {
     {
       party: 'Kein deutscher Pass',
       absolute: NON_CITIZEN_ABSOLUTE,
-      color: NON_CITIZEN_COLOR,
+      color: COLOR_NON_CITIZEN,
       is_include: this.include_non_citizens
     },
     {
       party: 'Minderjährige',
       absolute: MINOR_ABSOLUTE,
-      color: MINOR_COLOR,
+      color: COLOR_MINOR,
       is_include: this.include_underage
     }
   ]);
