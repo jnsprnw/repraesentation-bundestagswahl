@@ -14,7 +14,10 @@ export const SPD_COLOR = 'rgb(227, 29, 52)';
 export const GRUNE_COLOR = 'rgb(91, 167, 0)';
 export const LINKE_COLOR = 'rgb(193, 49, 151)';
 export const AFD_COLOR = '#8B4513';
-export const SONSTIGE_COLOR = '#A6A6A6';
+export const SONSTIGE_COLOR = 'oklch(0.75 0 0)';
+export const NON_VOTERS_COLOR = 'oklch(0.65 0 0)';
+export const NON_CITIZEN_COLOR = 'oklch(0.55 0 0)';
+export const MINOR_COLOR = 'oklch(0.45 0 0)';
 
 export const NON_CITIZEN_ABSOLUTE = 10250000;
 export const MINOR_ABSOLUTE = 14300000;

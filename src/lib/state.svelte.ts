@@ -19,7 +19,10 @@ import {
   CDU_COLOR,
   SPD_RELATIVE,
   SPD_COLOR,
-  WAEHLERINNEN_ABSOLUTE
+  WAEHLERINNEN_ABSOLUTE,
+  NON_VOTERS_COLOR,
+  NON_CITIZEN_COLOR,
+  MINOR_COLOR
 } from '$lib/data';
 import { sumArray } from '$lib/math';
 
@@ -91,7 +94,7 @@ export class BundestagswahlState {
       party: 'Nichtwähler:innen',
       relative: 1 - WAEHLERINNEN_RELATIVE,
       absolute: WAHLBERECHTIGTE_ABSOLUTE * (1 - WAEHLERINNEN_RELATIVE),
-      color: SONSTIGE_COLOR,
+      color: NON_VOTERS_COLOR,
       is_include: this.include_non_voters
       // in_sum: false
     }
@@ -101,13 +104,13 @@ export class BundestagswahlState {
     {
       party: 'Kein deutscher Pass',
       absolute: NON_CITIZEN_ABSOLUTE,
-      color: SONSTIGE_COLOR,
+      color: NON_CITIZEN_COLOR,
       is_include: this.include_non_citizens
     },
     {
       party: 'Minderjährige',
       absolute: MINOR_ABSOLUTE,
-      color: SONSTIGE_COLOR,
+      color: MINOR_COLOR,
       is_include: this.include_underage
     }
   ]);
