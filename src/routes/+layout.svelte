@@ -5,7 +5,7 @@
   let { children } = $props();
 
   const tile = 'Repräsentation der Bundestagswahl';
-  const url = 'https://wahlergebnis.prnw.dev/';
+  const url = 'https://repraesentation.prnw.dev/';
   const description =
     'Vergleich der Bundestagswahlergebnisse mit und ohne nicht-wahlberechtigen Gruppen';
 </script>
