@@ -1,11 +1,12 @@
 <script lang="ts">
   import { formatPercent, formatNumber } from '$lib/format';
   import { sumArray } from '$lib/math';
-  import { getBundestagswahlState } from '$lib/state.svelte';
+  import { getWahlState } from '$lib/state.svelte';
   import Row from './Row.svelte';
   import Label from './Label.svelte';
+  import Footnote from './Footnote.svelte';
 
-  const state = getBundestagswahlState();
+  const state = getWahlState();
 
   const hide_corrections = $derived(state.step < 2);
 </script>
@@ -24,6 +25,7 @@
   <tbody class="text-base/none">
     {#each state.parties_with_actual as party, index (party.party)}
       {@const is_active = party.is_display !== false && party.is_include}
+      {@const footnote_number = party.is_party ? 1 : 2}
       <Row {is_active}>
         <Label
           color={party.color}
@@ -32,7 +34,11 @@
           is_last={index === state.parties_with_actual.length - 1}
           is_first={index === 0}
         />
-        <td class="text-sm">{formatPercent(party.relative)}</td>
+        <td class="text-sm"
+          >{formatPercent(party.relative)}{#if is_active}<Footnote
+              number={footnote_number}
+            />{/if}</td
+        >
         <td class={['font-semibold transition-colors', { hide: hide_corrections }]}>
           {formatPercent(party.actual)}
         </td>
@@ -58,6 +64,7 @@
       <td>{formatNumber(sumArray(state.parties_with_actual.map((party) => party.absolute)))}</td>
     </tr>
     {#each state.non_parties_with_actual as party, index (party.party)}
+      {@const footnote_number = party.party === 'Kein deutscher Pass' ? 3 : 4}
       <Row is_active={party.is_include}>
         <Label
           is_active={party.is_include}
@@ -68,7 +75,11 @@
         />
         <td></td>
         <td class="font-semibold">{formatPercent(party.actual)}</td>
-        <td class="text-sm">{formatNumber(party.absolute)}</td>
+        <td class="text-sm"
+          >{formatNumber(party.absolute)}{#if party.is_include}<Footnote
+              number={footnote_number}
+            />{/if}</td
+        >
       </Row>
     {/each}
     <tr

@@ -31,6 +31,6 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="flex min-h-screen w-full flex-col items-center justify-center">
+<div class="flex min-h-screen w-full flex-col items-center justify-center py-10 sm:py-16">
   {@render children()}
 </div>

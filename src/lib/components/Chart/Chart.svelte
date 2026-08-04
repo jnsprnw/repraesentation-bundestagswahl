@@ -2,9 +2,9 @@
   import { LayerCake, Svg } from 'layercake';
   import { scaleBand, scaleOrdinal } from 'd3-scale';
   import { formatPercentRound, formatPercent } from '$lib/format';
-  import { getBundestagswahlState } from '$lib/state.svelte';
+  import { getWahlState } from '$lib/state.svelte';
 
-  const state = getBundestagswahlState();
+  const state = getWahlState();
 
   import Column from './Column.svg.svelte';
   import AxisX from './AxisX.svg.svelte';

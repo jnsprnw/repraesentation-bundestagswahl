@@ -13,6 +13,10 @@ const formatterPercentRound = new Intl.NumberFormat('de-DE', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 0
 });
+const formatterDate = new Intl.DateTimeFormat('de-DE', {
+  dateStyle: 'long',
+  timeStyle: 'short'
+});
 
 export function formatNumber(num: number): string {
   return formatterAbsolute.format(num);
@@ -28,4 +32,16 @@ export function formatPercent(num: number): string {
 
 export function formatPercentRound(num: number): string {
   return narrowNoBreakBeforePercent(formatterPercentRound.format(num));
+}
+
+export function formatDate(date: Date): string {
+  return formatterDate.format(date);
+}
+
+export function formatUrl(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
 }

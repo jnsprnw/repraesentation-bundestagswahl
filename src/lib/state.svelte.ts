@@ -2,29 +2,9 @@ import { getContext, setContext } from 'svelte';
 import { Tween } from 'svelte/motion';
 import { cubicOut } from 'svelte/easing';
 import { SvelteMap } from 'svelte/reactivity';
-import {
-  NON_CITIZEN_ABSOLUTE,
-  MINOR_ABSOLUTE,
-  COLOR_GRUNE,
-  COLOR_LINKE,
-  COLOR_SONSTIGE,
-  COLOR_AFD,
-  WAHLBERECHTIGTE_ABSOLUTE,
-  WAEHLERINNEN_RELATIVE,
-  SONSTIGE_RELATIVE,
-  AFD_RELATIVE,
-  LINKE_RELATIVE,
-  GRUNE_RELATIVE,
-  CDU_RELATIVE,
-  COLOR_CDU,
-  SPD_RELATIVE,
-  COLOR_SPD,
-  WAEHLERINNEN_ABSOLUTE,
-  COLOR_NON_VOTERS,
-  COLOR_NON_CITIZEN,
-  COLOR_MINOR
-} from '$lib/data';
+import { PARTY_COLORS, COLOR_NON_VOTERS, COLOR_NON_CITIZEN, COLOR_MINOR } from '$lib/data';
 import { sumArray } from '$lib/math';
+import type { Election } from '$lib/types';
 
 const TWEEN_OPTIONS = { duration: 450, easing: cubicOut };
 
@@ -40,67 +20,34 @@ type Party = {
 
 export const MAX_STEP = 4;
 
-export class BundestagswahlState {
+export class WahlState {
+  #election!: Election;
+
   step = $state<number>(0);
   include_others = $derived<boolean>(this.step >= 1);
   include_non_voters = $derived<boolean>(this.step >= 2);
   include_non_citizens = $derived<boolean>(this.step >= 3);
   include_underage = $derived<boolean>(this.step >= MAX_STEP);
 
+  #waehlerinnen_absolute = $derived(
+    this.#election.wahlberechtigte_absolute * this.#election.waehlerinnen_relative
+  );
+
   parties = $derived<Party[]>([
-    {
-      party: 'Union',
-      relative: CDU_RELATIVE,
-      absolute: WAEHLERINNEN_ABSOLUTE * CDU_RELATIVE,
-      color: COLOR_CDU,
-      is_include: true,
-      is_party: true
-    },
-    {
-      party: 'SPD',
-      relative: SPD_RELATIVE,
-      absolute: WAEHLERINNEN_ABSOLUTE * SPD_RELATIVE,
-      color: COLOR_SPD,
-      is_include: true,
-      is_party: true
-    },
-    {
-      party: 'Grüne',
-      relative: GRUNE_RELATIVE,
-      absolute: WAEHLERINNEN_ABSOLUTE * GRUNE_RELATIVE,
-      color: COLOR_GRUNE,
-      is_include: true,
-      is_party: true
-    },
-    {
-      party: 'Linke',
-      relative: LINKE_RELATIVE,
-      absolute: WAEHLERINNEN_ABSOLUTE * LINKE_RELATIVE,
-      color: COLOR_LINKE,
-      is_include: true,
-      is_party: true
-    },
-    {
-      party: 'AfD',
-      relative: AFD_RELATIVE,
-      absolute: WAEHLERINNEN_ABSOLUTE * AFD_RELATIVE,
-      color: COLOR_AFD,
-      is_include: true,
-      is_party: true
-    },
-    {
-      party: 'Sonstige',
-      relative: SONSTIGE_RELATIVE,
-      absolute: WAEHLERINNEN_ABSOLUTE * SONSTIGE_RELATIVE,
-      color: COLOR_SONSTIGE,
+    ...this.#election.parties.map((party) => ({
+      party: party.name,
+      relative: party.relative,
+      absolute: this.#waehlerinnen_absolute * party.relative,
+      color: PARTY_COLORS[party.name],
       is_include: true,
       is_party: true,
-      is_display: this.include_others
-    },
+      ...(party.name === 'Sonstige' ? { is_display: this.include_others } : {})
+    })),
     {
       party: 'Nichtwähler:innen',
-      relative: 1 - WAEHLERINNEN_RELATIVE,
-      absolute: WAHLBERECHTIGTE_ABSOLUTE * (1 - WAEHLERINNEN_RELATIVE),
+      relative: 1 - this.#election.waehlerinnen_relative,
+      absolute:
+        this.#election.wahlberechtigte_absolute * (1 - this.#election.waehlerinnen_relative),
       color: COLOR_NON_VOTERS,
       is_include: this.include_non_voters
     }
@@ -109,13 +56,13 @@ export class BundestagswahlState {
   non_parties = $derived([
     {
       party: 'Kein deutscher Pass',
-      absolute: NON_CITIZEN_ABSOLUTE,
+      absolute: this.#election.non_citizen_absolute,
       color: COLOR_NON_CITIZEN,
       is_include: this.include_non_citizens
     },
     {
       party: 'Minderjährige',
-      absolute: MINOR_ABSOLUTE,
+      absolute: this.#election.minor_absolute,
       color: COLOR_MINOR,
       is_include: this.include_underage
     }
@@ -144,7 +91,9 @@ export class BundestagswahlState {
   // Start bei 0, damit die Balken beim ersten Laden von unten hochwachsen.
   #actual_tweens = new SvelteMap<string, Tween<number>>();
 
-  constructor() {
+  constructor(election: Election) {
+    this.#election = election;
+
     for (const { party } of [...this.#parties_actual, ...this.#non_parties_actual]) {
       this.#actual_tweens.set(party, new Tween(0, TWEEN_OPTIONS));
     }
@@ -186,10 +135,10 @@ export class BundestagswahlState {
 
 const KEY_STATE = Symbol('state-bundestagswahl');
 
-export function setBundestagswahlState() {
-  return setContext(KEY_STATE, new BundestagswahlState());
+export function setWahlState(election: Election) {
+  return setContext(KEY_STATE, new WahlState(election));
 }
 
-export function getBundestagswahlState() {
-  return getContext<ReturnType<typeof setBundestagswahlState>>(KEY_STATE);
+export function getWahlState() {
+  return getContext<ReturnType<typeof setWahlState>>(KEY_STATE);
 }

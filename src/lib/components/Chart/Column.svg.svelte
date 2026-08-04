@@ -4,8 +4,8 @@
  -->
 <script>
   import { getContext } from 'svelte';
-  import { getBundestagswahlState } from '$lib/state.svelte';
-  const state = getBundestagswahlState();
+  import { getWahlState } from '$lib/state.svelte';
+  const state = getWahlState();
 
   const { data, xGet, yGet, x, yRange, xScale, y, height, z, yScale } = getContext('LayerCake');
 

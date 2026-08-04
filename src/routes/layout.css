@@ -28,19 +28,22 @@
   src: url('/fonts/Geist-Black.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-html {
-  font-family: 'Geist', sans-serif;
-}
+/* @layer base, damit Tailwind-Utility-Klassen (z.B. no-underline) diese Defaults überschreiben können. */
+@layer base {
+  html {
+    font-family: 'Geist', sans-serif;
+  }
 
-thead th,
-tbody td:first-child :not(.non-party) {
-  font-weight: 600;
-}
+  thead th,
+  tbody td:first-child :not(.non-party) {
+    font-weight: 600;
+  }
 
-.hide {
-  @apply text-white select-none;
-}
+  .hide {
+    @apply text-white select-none;
+  }
 
-a {
-  @apply underline decoration-blue-500 decoration-[1.5px] hover:text-blue-500 focus:text-blue-500;
+  a {
+    @apply underline decoration-blue-500 decoration-[1.5px] hover:text-blue-500 focus:text-blue-500;
+  }
 }
