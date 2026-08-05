@@ -1,7 +1,7 @@
 import { csvParse } from 'd3-dsv';
 import { env } from '$env/dynamic/private';
 import { slugify } from '$lib/slug';
-import type { Election } from '$lib/types';
+import type { Election, ElectionEntry } from '$lib/types';
 
 const PARTY_COLUMNS = ['Union', 'SPD', 'Grüne', 'Linke', 'AfD', 'Sonstige'];
 
@@ -46,11 +46,9 @@ function parseDate(raw: string): Date | null {
   return Number.isNaN(isoLike.getTime()) ? null : isoLike;
 }
 
-function rowToElection(row: Record<string, string>): Election {
-  const title = findValue(row, 'Titel');
-  if (!title) throw new Error('Zeile im Sheet ohne Titel gefunden.');
-
+function parseElection(row: Record<string, string>, title: string): Election {
   return {
+    ok: true,
     slug: slugify(title),
     title,
     wahlberechtigte_absolute: parseAbsolute(findValue(row, 'Wahlberechtigte')),
@@ -70,7 +68,26 @@ function rowToElection(row: Record<string, string>): Election {
   };
 }
 
-async function fetchElections(): Promise<Election[]> {
+// Zeilen ohne Titel haben keinen Slug und können keine eigene Seite bekommen, werden also
+// komplett übersprungen. Zeilen mit Titel aber unvollständigen/ungültigen Werten bekommen
+// trotzdem ihre Seite, zeigen dort aber eine Fehlermeldung statt Diagramm/Tabelle.
+function rowToElectionEntry(row: Record<string, string>): ElectionEntry | null {
+  const title = findValue(row, 'Titel');
+  if (!title) return null;
+
+  try {
+    return parseElection(row, title);
+  } catch (error) {
+    return {
+      ok: false,
+      slug: slugify(title),
+      title,
+      error: error instanceof Error ? error.message : 'Unbekannter Fehler beim Einlesen der Zeile.'
+    };
+  }
+}
+
+async function fetchElections(): Promise<ElectionEntry[]> {
   const sheetCsvUrl = env.SHEET_CSV_URL;
   if (!sheetCsvUrl) {
     throw new Error(
@@ -91,12 +108,19 @@ async function fetchElections(): Promise<Election[]> {
     throw new Error('Das Google Sheet enthält keine Datenzeilen.');
   }
 
-  return rows.map((row) => rowToElection(row as Record<string, string>));
+  const entries = rows
+    .map((row) => rowToElectionEntry(row as Record<string, string>))
+    .filter((entry) => entry !== null);
+  if (entries.length === 0) {
+    throw new Error('Das Google Sheet enthält keine Zeile mit einem Titel.');
+  }
+
+  return entries;
 }
 
-let cache: Promise<Election[]> | null = null;
+let cache: Promise<ElectionEntry[]> | null = null;
 
-export function getElections(): Promise<Election[]> {
+export function getElections(): Promise<ElectionEntry[]> {
   if (!cache) cache = fetchElections();
   return cache;
 }
