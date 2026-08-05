@@ -22,10 +22,9 @@
 
   // Fortlaufende Nummerierung entspricht den Fußnoten-Verweisen in der Tabelle.
   const footnoteSources = $derived([
-    { number: 1, label: 'Parteien', url: election.sources.parties },
-    { number: 2, label: 'Nichtwähler:innen', url: election.sources.non_voters },
-    { number: 3, label: 'Kein deutscher Pass', url: election.sources.non_citizens },
-    { number: 4, label: 'Minderjährige', url: election.sources.minors }
+    { number: 1, label: 'Parteien und Nichtwähler:innen', url: election.sources.parties },
+    { number: 2, label: 'Kein deutscher Pass', url: election.sources.non_citizens },
+    { number: 3, label: 'Minderjährige', url: election.sources.minors }
   ]);
 
   function handleKeydown(event: KeyboardEvent) {

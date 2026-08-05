@@ -25,7 +25,6 @@
   <tbody class="text-base/none">
     {#each state.parties_with_actual as party, index (party.party)}
       {@const is_active = party.is_display !== false && party.is_include}
-      {@const footnote_number = party.is_party ? 1 : 2}
       <Row {is_active}>
         <Label
           color={party.color}
@@ -35,9 +34,7 @@
           is_first={index === 0}
         />
         <td class="text-sm"
-          >{formatPercent(party.relative)}{#if is_active}<Footnote
-              number={footnote_number}
-            />{/if}</td
+          >{formatPercent(party.relative)}{#if is_active}<Footnote number={1} />{/if}</td
         >
         <td class={['font-semibold transition-colors', { hide: hide_corrections }]}>
           {formatPercent(party.actual)}
@@ -64,7 +61,7 @@
       <td>{formatNumber(sumArray(state.parties_with_actual.map((party) => party.absolute)))}</td>
     </tr>
     {#each state.non_parties_with_actual as party, index (party.party)}
-      {@const footnote_number = party.party === 'Kein deutscher Pass' ? 3 : 4}
+      {@const footnote_number = party.party === 'Kein deutscher Pass' ? 2 : 3}
       <Row is_active={party.is_include}>
         <Label
           is_active={party.is_include}

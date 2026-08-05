@@ -1,6 +1,5 @@
 export type ElectionSources = {
   parties: string;
-  non_voters: string;
   non_citizens: string;
   minors: string;
 };

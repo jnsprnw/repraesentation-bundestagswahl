@@ -63,7 +63,6 @@ function rowToElection(row: Record<string, string>): Election {
     minor_absolute: parseAbsolute(findValue(row, 'Minderjährige')),
     sources: {
       parties: findValue(row, 'Quelle Parteien'),
-      non_voters: findValue(row, 'Quelle Nichtwähler'),
       non_citizens: findValue(row, 'Quelle Kein deutscher Pass'),
       minors: findValue(row, 'Quelle Minderjährige')
     },

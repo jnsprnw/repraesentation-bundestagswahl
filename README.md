@@ -27,10 +27,9 @@ Aus dem `Titel` jeder Zeile wird automatisch ein Slug erzeugt (z.B. „Bundestag
 | `Sonstige`                   | `0,157`                               | Stimmenanteil aller übrigen Parteien zusammen. Am besten als Formel: `=0,043 + 0,02 + 0,094` für die jeweilige Zusammensetzung. |
 | `Kein deutscher Pass`        | `10250000`                            | Absolute Anzahl der Personen ohne deutschen Pass.                                                                               |
 | `Minderjährige`              | `14300000`                            | Absolute Anzahl der Minderjährigen.                                                                                             |
-| `Quelle Parteien`            | `https://www.bundeswahlleiterin.de/…` | Quelle für die Partei-Ergebnisse (inkl. Sonstige), erscheint als Fußnote „1“.                                                   |
-| `Quelle Nichtwähler`         | `https://www.bundeswahlleiterin.de/…` | Quelle für die Wahlbeteiligung/Nichtwähler:innen, Fußnote „2“.                                                                  |
-| `Quelle Kein deutscher Pass` | `https://…`                           | Quelle für die Zahl ohne deutschen Pass, Fußnote „3“.                                                                           |
-| `Quelle Minderjährige`       | `https://…`                           | Quelle für die Zahl der Minderjährigen, Fußnote „4“.                                                                            |
+| `Quelle Parteien`            | `https://www.bundeswahlleiterin.de/…` | Quelle für die Partei-Ergebnisse (inkl. Sonstige und Nichtwähler:innen), erscheint als Fußnote „1“.                             |
+| `Quelle Kein deutscher Pass` | `https://…`                           | Quelle für die Zahl ohne deutschen Pass, Fußnote „2“.                                                                           |
+| `Quelle Minderjährige`       | `https://…`                           | Quelle für die Zahl der Minderjährigen, Fußnote „3“.                                                                            |
 | `Zuletzt geändert`           | `2026-08-04 20:45:56`                 | Zeitpunkt der letzten Aktualisierung dieser Zeile (manuell pflegen), Format `JJJJ-MM-TT HH:mm:ss` oder `TT.MM.JJJJ HH:mm`.      |
 
 Absolute Zahlen dürfen Tausendertrennzeichen enthalten (`.` oder `,`), Prozentspalten akzeptieren `,` oder `.` als Dezimaltrennzeichen sowie ein optionales `%`. Fehlt eine Quellenspalte, wird auf der Seite „Keine Quelle angegeben“ angezeigt.
